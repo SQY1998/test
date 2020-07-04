@@ -1,0 +1,39 @@
+a {
+    font-size: 40px;
+    color: #dd4b39;
+}
+
+/*p {*/
+/*    font-size: 25px;*/
+/*     color: #0c0c0c;*/
+
+/*}*/
+body
+{
+
+    background: url("39/images/background-images.jpg") no-repeat center top/100% auto;/*¸ü¸Ä±³¾°*/
+    width: 100%;
+    float: left;
+    /*background-color: #eba426;*/
+    font-size: 25PX;
+}
+.container
+{
+    width: 80%;
+    margin: auto;
+}
+.box1
+{
+    background-color: antiquewhite;
+    color: #0b74cb;
+    font-weight: bold;
+
+}
+.box2
+{
+    background-color: antiquewhite;
+    color: #101010;
+    font-weight: bold;
+    font-size: 25px;
+
+}
